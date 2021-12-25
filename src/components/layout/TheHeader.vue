@@ -14,7 +14,7 @@
   </header>
 </template>
 
-<style>
+<style scoped>
 header {
   width: 100%;
   height: 5rem;
