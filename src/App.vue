@@ -12,20 +12,35 @@ import TheHeader from './components/layout/TheHeader.vue';
 
 export default {
   components: {
-    TheHeader,
+    TheHeader
   },
-};
+  computed: {
+    didAutoLogout() {
+      return this.$store.getters.didAutoLogout;
+    }
+  },
+  created() {
+    this.$store.dispatch('tryLogin');
+  },
+  watch: {
+    didAutoLogout(curValue, oldValue) {
+      if (curValue && curValue !== oldValue) {
+        this.$router.replace('/coaches');
+      }
+    }
+  }
+}
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
 * {
   box-sizing: border-box;
 }
 
 html {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 body {
@@ -43,11 +58,11 @@ body {
 }
 
 .route-enter-active {
-  transition: 0.1s all ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .route-leave-active {
-  transition: 0.1s all ease-in;
+  transition: all 0.3s ease-in;
 }
 
 .route-enter-to,
