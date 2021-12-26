@@ -1,10 +1,6 @@
 <template>
   <div>
-    <base-dialog
-      :show="!!error"
-      title="An error occurred!"
-      @close="handleError"
-    >
+    <base-dialog :show="!!error" title="An error occurred!" @close="handleError">
       <p>{{ error }}</p>
     </base-dialog>
     <section>
@@ -48,22 +44,22 @@ export default {
       return this.$store.getters['requests/hasRequests'];
     },
   },
+  created() {
+    this.loadRequests();
+  },
   methods: {
     async loadRequests() {
       this.isLoading = true;
       try {
         await this.$store.dispatch('requests/fetchRequests');
       } catch (error) {
-        this.error = error.message || 'Something went wrong';
+        this.error = error.message || 'Something failed!';
       }
       this.isLoading = false;
     },
     handleError() {
       this.error = null;
     },
-  },
-  created() {
-    this.loadRequests();
   },
 };
 </script>

@@ -2,13 +2,13 @@ export default {
   async contactCoach(context, payload) {
     const newRequest = {
       userEmail: payload.email,
-      message: payload.message,
+      message: payload.message
     };
     const response = await fetch(
-      `https://coach-finder-app-b9c47-default-rtdb.firebaseio.com/requests/${payload.coachId}.json`,
+      `https://vue-http-demo-85e9e.firebaseio.com/requests/${payload.coachId}.json`,
       {
         method: 'POST',
-        body: JSON.stringify(newRequest),
+        body: JSON.stringify(newRequest)
       }
     );
 
@@ -30,7 +30,8 @@ export default {
     const coachId = context.rootGetters.userId;
     const token = context.rootGetters.token;
     const response = await fetch(
-      `https://coach-finder-app-b9c47-default-rtdb.firebaseio.com/requests/${coachId}.json?auth=${token}`
+      `https://vue-http-demo-85e9e.firebaseio.com/requests/${coachId}.json?auth=` +
+        token
     );
     const responseData = await response.json();
 
@@ -48,11 +49,11 @@ export default {
         id: key,
         coachId: coachId,
         userEmail: responseData[key].userEmail,
-        message: responseData[key].message,
+        message: responseData[key].message
       };
       requests.push(request);
     }
 
     context.commit('setRequests', requests);
-  },
+  }
 };
